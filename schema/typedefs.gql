@@ -1,0 +1,53 @@
+scalar Date
+
+type Infographic {
+    id: ID!
+    title: String!
+    dataCreated: Date!
+    author: String!
+    shortDescription: String!
+    readingTime: Int
+}
+
+type Admin {
+    username: String!
+    password: String!
+}
+
+type Lembaga {
+    username: String!
+    email: String!
+    password: String!
+}
+
+type Dataset {
+    id: ID!
+    name: String!
+    dataCreated: Date!
+    author: String!
+    link: String!
+    category: [Category]
+}
+
+type Category {
+    id: ID!
+    name: String!
+    cover: String
+}
+
+type Query {
+    getInfographics: [Infographic]!
+    getInfographic(id: ID!): Infographic
+}
+
+type Mutation {
+    addInfographic(username: String!, password:String!): Infographic!
+    editInfographic(
+        id: ID!, 
+        title: String, 
+        dataCreated: Date, 
+        author: String,
+        shortDescription: String,
+        readingTime: Int
+    ): Infographic!
+}
