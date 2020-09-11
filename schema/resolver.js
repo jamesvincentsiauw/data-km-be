@@ -9,6 +9,10 @@ const resolver = {
     addInfographic: (parent, args) => {
       /* Function Goes Here */
     },
+
+    editInfographic: (parent, args) => {
+      /* Function Goes Here */
+    },
   },
 };
 

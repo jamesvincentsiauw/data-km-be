@@ -1,9 +1,6 @@
-scalar Date
-
 type Infographic {
     id: ID!
     title: String!
-    dataCreated: Date!
     author: String!
     shortDescription: String!
     readingTime: Int
@@ -23,7 +20,6 @@ type Lembaga {
 type Dataset {
     id: ID!
     name: String!
-    dataCreated: Date!
     author: String!
     link: String!
     category: [Category]
@@ -35,19 +31,89 @@ type Category {
     cover: String
 }
 
+type GeneralResponse {
+    status: Int!
+    message: String!
+}
+
+type AuthenticationResponse {
+    access_token: String!
+    message: String!
+}
+
 type Query {
-    getInfographics: [Infographic]!
+    getInfographics: [Infographic]
     getInfographic(id: ID!): Infographic
+    countInfographic: GeneralResponse
+
+    getLembaga: [Lembaga]
+
+    countDataset: GeneralResponse
+
+    getCategory: [Category]
 }
 
 type Mutation {
-    addInfographic(username: String!, password:String!): Infographic!
-    editInfographic(
-        id: ID!, 
-        title: String, 
-        dataCreated: Date, 
-        author: String,
-        shortDescription: String,
+    # Start Infographic Section
+    addInfographic(
+        title: String
+        author: String
+        shortDescription: String
         readingTime: Int
-    ): Infographic!
+    ): GeneralResponse!
+
+    editInfographic(
+        id: ID!
+        title: String
+        author: String
+        shortDescription: String
+        readingTime: Int
+    ): GeneralResponse!
+
+    deleteInfographic(
+        id: ID!
+    ): GeneralResponse!
+    # End Infographic Section
+
+    # Start Authentication Section
+    login(
+        username: String!
+        password: String!
+    ): AuthenticationResponse!
+    
+    signup(
+        username: String!
+        password: String!
+    ): GeneralResponse!
+
+    forgotPassword(
+        username: String!
+    ): GeneralResponse!
+
+    editProfile(
+        username: String!
+        password: String!
+    ): GeneralResponse!
+    # End Authentication Section
+
+    # Start Category Section
+    addCategory(
+        name: String!
+        cover: String
+    ): GeneralResponse!
+
+    editCategory(
+        id: ID!
+        name: String
+        cover: String
+    ): GeneralResponse!
+
+    deleteCategory(
+        id: ID!
+    ): GeneralResponse!
+    # End Category Section
+
+    # Start Dataset Section
+    
+    # End Dataset Section
 }
