@@ -1,4 +1,4 @@
-const { login } = require('./modules/auth');
+const {login, register, editProfile} = require('./modules/auth');
 
 const resolver = {
   Query: {
@@ -8,6 +8,8 @@ const resolver = {
   },
   Mutation: {
     login: async (parent, args) => await login(args),
+    register: async (parent, args) => await register(args),
+    editProfile: async (parent, args) => await editProfile(args),
 
     addInfographic: (parent, args) => {
       /* Function Goes Here */
