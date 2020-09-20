@@ -1,4 +1,5 @@
-/* eslint-disable linebreak-style */
+const { login } = require('./modules/auth');
+
 const resolver = {
   Query: {
     getInfographics: () => {
@@ -6,6 +7,8 @@ const resolver = {
     },
   },
   Mutation: {
+    login: async (parent, args) => await login(args),
+
     addInfographic: (parent, args) => {
       /* Function Goes Here */
     },

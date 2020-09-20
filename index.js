@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const {ApolloServer} = require('apollo-server');
 const {loadFile} = require('graphql-import-files');
 const resolver = require('./schema/resolver');

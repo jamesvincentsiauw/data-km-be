@@ -6,15 +6,10 @@ type Infographic {
     readingTime: Int
 }
 
-type Admin {
+type User { 
+    name: String!
     username: String!
-    password: String!
-}
-
-type Lembaga {
-    username: String!
-    email: String!
-    password: String!
+    role: String!
 }
 
 type Dataset {
@@ -37,7 +32,8 @@ type GeneralResponse {
 }
 
 type AuthenticationResponse {
-    access_token: String!
+    access_token: String
+    user: User
     message: String!
 }
 
@@ -46,7 +42,7 @@ type Query {
     getInfographic(id: ID!): Infographic
     countInfographic: GeneralResponse
 
-    getLembaga: [Lembaga]
+    getLembaga: [User]
 
     countDataset: GeneralResponse
 
