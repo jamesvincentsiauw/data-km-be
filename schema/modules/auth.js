@@ -23,7 +23,9 @@ const login = async (params) => {
     const selectedUser = doc.docs[0];
 
     // Comparing Hashed Password with Given Paswword
-    const match = await bcrypt.compare(password, selectedUser.password);
+    const match = await bcrypt.compare(password, selectedUser.password).catch((err) => {
+      throw new Error(err);
+    });
 
     if (match) {
       // Signing JWT to Authenticated User
@@ -41,25 +43,35 @@ const login = async (params) => {
 
       return retval;
     } else {
-      const retval = {
-        access_token: null,
-        message: 'password error',
-        user: null,
-      };
-
-      return retval;
+      throw new Error('password error');
     }
   } else {
-    const retval = {
-      access_token: null,
-      message: 'username error',
-      user: null,
+    throw new Error('username error');
+  }
+};
+
+const verifyToken = (accessToken) => {
+  try {
+    // Verify Given Access Token
+    const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET);
+    const userLoggedIn = {
+      status: true,
+      user: decodedToken,
+      message: 'success',
     };
 
-    return retval;
+    return userLoggedIn;
+  } catch (err) {
+    const userLoggedIn = {
+      status: false,
+      user: null,
+      message: err.message,
+    };
+    return userLoggedIn;
   }
 };
 
 module.exports = {
   login,
+  verifyToken,
 };
