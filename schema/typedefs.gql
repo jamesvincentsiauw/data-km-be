@@ -92,9 +92,10 @@ type Mutation {
         password: String!
     ): GeneralResponse!
 
-    forgotPassword(
+    verifyPassword(
         username: String!
-    ): GeneralResponse!
+        password: String!
+    ): Boolean!
 
     editProfile(
         username: String!

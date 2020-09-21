@@ -1,4 +1,5 @@
-const {login, register, editProfile} = require('./modules/auth');
+/* eslint-disable max-len */
+const {login, register, editProfile, verifyPassword} = require('./modules/auth');
 
 const resolver = {
   Query: {
@@ -10,6 +11,7 @@ const resolver = {
     login: async (parent, args) => await login(args),
     register: async (parent, args) => await register(args),
     editProfile: async (parent, args) => await editProfile(args),
+    verifyPassword: async (parent, args) => await verifyPassword(args),
 
     addInfographic: (parent, args) => {
       /* Function Goes Here */

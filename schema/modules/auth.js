@@ -10,15 +10,12 @@ const BCRYPT_SALT = 10;
 const db = new PouchDB(process.env.COUCH_STAGING+'user', {skip_setup: true});
 
 const login = async (params) => {
-  const username = params.username;
-  const password = params.password;
+  const {username, password} = params;
 
   // Get User From DB
   const doc = await db.find({
     selector: {
-      username: {
-        $eq: username,
-      },
+      username: {$eq: username},
     },
   });
 
@@ -97,26 +94,23 @@ const register = async (params) => {
 };
 
 const editProfile = async (params) => {
-  const username = params.username;
-  const newProfile = params.profile;
+  const {username, profile} = params;
 
   // Get User From DB
   const doc = await db.find({
     selector: {
-      username: {
-        $eq: username,
-      },
+      username: {$eq: username},
     },
   });
 
   if (doc.docs.length > 0) {
     // Iterate to Automatically Edit Data
-    for (item in newProfile) {
+    for (item in profile) {
       // Change Password Handling
       if (item === 'password') {
-        doc.docs[0][item] = await bcrypt.hash(newProfile[item], BCRYPT_SALT);
+        doc.docs[0][item] = await bcrypt.hash(profile[item], BCRYPT_SALT);
       } else {
-        doc.docs[0][item] = newProfile[item];
+        doc.docs[0][item] = profile[item];
       }
     }
     doc.docs[0].updatedAt = moment().format();
@@ -156,9 +150,32 @@ const verifyToken = (accessToken) => {
   }
 };
 
+const verifyPassword = async (params) => {
+  try {
+    const {username, password} = params;
+
+    // Get User From DB
+    const user = await db.find({
+      selector: {
+        username: {$eq: username},
+      },
+    });
+
+    if (user.docs.length > 0) {
+      // Return Compare Result for Hashed Password
+      return bcrypt.compare(password, user.docs[0].password);
+    } else {
+      return false;
+    }
+  } catch (err) {
+    return false;
+  }
+};
+
 module.exports = {
   login,
   register,
   editProfile,
   verifyToken,
+  verifyPassword,
 };
