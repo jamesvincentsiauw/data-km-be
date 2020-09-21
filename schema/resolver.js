@@ -1,8 +1,10 @@
 /* eslint-disable max-len */
 const {login, register, editProfile, verifyPassword} = require('./modules/auth');
+const {getCategory} = require('./modules/category');
 
 const resolver = {
   Query: {
+    getCategory: async () => await getCategory(),
     getInfographics: () => {
       /* Function Goes Here */
     },
