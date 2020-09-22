@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
-const {login, register, editProfile, verifyPassword} = require('./modules/auth');
-const {getCategory, addCategory, editCategory, deleteCategory} = require('./modules/category');
+const {login, register, editProfile, verifyPassword} = require('./modules/authenticationController');
+const {getCategory, addCategory, editCategory, deleteCategory} = require('./modules/categoryController');
 
 const resolver = {
   Query: {
