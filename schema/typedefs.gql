@@ -51,13 +51,15 @@ input CategoryInput {
 }
 
 type Query {
-    getInfographics: [Infographic]
-    getInfographic(id: ID!): Infographic
-    countInfographic: GeneralResponse
-
-    getLembaga: [User]
-
-    countDataset: GeneralResponse
+    getInfographic(
+        id: ID
+        title: String
+    ): [Infographic]
+    
+    getLembaga(
+        id: ID,
+        name: String
+    ): [User]
 
     getCategory: [Category]
 }
@@ -65,10 +67,10 @@ type Query {
 type Mutation {
     # Start Infographic Section
     addInfographic(
-        title: String
-        author: String
-        shortDescription: String
-        readingTime: Int
+        title: String!
+        author: String!
+        shortDescription: String!
+        readingTime: Int!
     ): GeneralResponse!
 
     editInfographic(
@@ -80,7 +82,7 @@ type Mutation {
     ): GeneralResponse!
 
     deleteInfographic(
-        id: ID!
+        title: String!
     ): GeneralResponse!
     # End Infographic Section
 

@@ -1,13 +1,12 @@
 /* eslint-disable max-len */
 const {login, register, editProfile, verifyPassword} = require('./modules/authenticationController');
 const {getCategory, addCategory, editCategory, deleteCategory} = require('./modules/categoryController');
+const {getInfographic} = require('./modules/infographicController');
 
 const resolver = {
   Query: {
     getCategory: async () => await getCategory(),
-    getInfographics: () => {
-      /* Function Goes Here */
-    },
+    getInfographic: async (parent, args) => await getInfographic(args),
   },
   Mutation: {
     // Authentication
@@ -25,8 +24,10 @@ const resolver = {
     addInfographic: (parent, args) => {
       /* Function Goes Here */
     },
-
     editInfographic: (parent, args) => {
+      /* Function Goes Here */
+    },
+    deleteInfographic: (parent, args) => {
       /* Function Goes Here */
     },
   },
