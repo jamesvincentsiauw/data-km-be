@@ -26,7 +26,7 @@ const getCategory = async () => {
 
     return allCategory;
   } else {
-    throw new Error('No Documents Found in DB');
+    throw new Error('No Documents Found.');
   }
 };
 
