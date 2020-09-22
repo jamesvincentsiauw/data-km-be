@@ -126,6 +126,8 @@ const editProfile = async (params) => {
     } else {
       throw new Error('Error When Editing Document. Try Again Later!');
     }
+  } else {
+    throw new Error('No Documents Found.');
   }
 };
 

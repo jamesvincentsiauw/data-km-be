@@ -45,6 +45,11 @@ input Profile {
     role: String
 }
 
+input CategoryInput {
+    name: String
+    cover: String
+}
+
 type Query {
     getInfographics: [Infographic]
     getInfographic(id: ID!): Infographic
@@ -110,13 +115,12 @@ type Mutation {
     ): GeneralResponse!
 
     editCategory(
-        id: ID!
-        name: String
-        cover: String
+        name: String!
+        data: CategoryInput!
     ): GeneralResponse!
 
     deleteCategory(
-        id: ID!
+        name: String!
     ): GeneralResponse!
     # End Category Section
 
