@@ -2,6 +2,7 @@
 const {login, register, editProfile, verifyPassword} = require('./modules/authenticationController');
 const {getCategory, addCategory, editCategory, deleteCategory} = require('./modules/categoryController');
 const {getInfographic, addInfographic, editInfographic, deleteInfographic} = require('./modules/infographicController');
+const {getDataset, addDataset, editDataset, deleteDataset} = require('./modules/datasetController');
 
 const resolver = {
   Query: {
@@ -24,6 +25,11 @@ const resolver = {
     addInfographic: async (parent, args) => await addInfographic(args),
     editInfographic: async (parent, args) => await editInfographic(args),
     deleteInfographic: async (parent, args) => await deleteInfographic(args),
+
+    // Dataset
+    addDataset: async (parent, args) => await addDataset(args),
+    editDataset: async (parent, args) => await editDataset(args),
+    deleteDataset: async (parent, args) => await deleteDataset(args),
   },
 };
 

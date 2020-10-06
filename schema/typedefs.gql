@@ -19,7 +19,7 @@ type Dataset {
     name: String!
     author: String!
     link: String!
-    category: [Category]
+    category: [String]
 }
 
 type Category {
@@ -59,11 +59,23 @@ input InfographicInput {
     readingTime: Int
 }
 
+input DatasetInput {
+    name: String
+    author: String
+    link: String
+    category: [String]
+}
+
 type Query {
     getInfographic(
         id: ID
         title: String
     ): [Infographic]
+
+    getDataset(
+        id: ID
+        name: String
+    ): [Dataset]
     
     getLembaga(
         id: ID,
@@ -134,6 +146,20 @@ type Mutation {
     # End Category Section
 
     # Start Dataset Section
-    
+    addDataset(
+        name: String!
+        author: String!
+        link: String!
+        category: [String]!
+    ): GeneralResponse!
+
+    editDataset(
+        name: String!
+        data: DatasetInput!
+    ): GeneralResponse!
+
+    deleteDataset(
+        name: String!
+    ): GeneralResponse!
     # End Dataset Section
 }
