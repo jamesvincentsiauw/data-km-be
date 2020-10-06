@@ -43,10 +43,10 @@ const login = async (params) => {
 
       return retval;
     } else {
-      throw new Error('password error');
+      throw new Error('Password Error');
     }
   } else {
-    throw new Error('username error');
+    throw new Error('Username Error');
   }
 };
 

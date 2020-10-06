@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 /* eslint-disable max-len */
 require('dotenv').config();
 const PouchDB = require('pouchdb');
@@ -48,6 +49,106 @@ const getInfographic = async (params) => {
   };
 };
 
+const addInfographic = async (params) => {
+  const {title, author, shortDescription, readingTime} = params;
+
+  // Check Data in DB
+  const doc = await db.find({
+    selector: {
+      title: {$eq: title},
+    },
+  });
+
+  if (doc.docs.length > 0) {
+    throw new Error('Title Unavailable');
+  } else {
+    const payload = {
+      title: title,
+      author: author,
+      shortDescription: shortDescription,
+      readingTime: readingTime,
+      createdAt: moment().format(),
+      updatedAt: moment().format(),
+    };
+
+    // Store New Infographic
+    const newInfographic = await db.post(payload);
+    if (newInfographic.ok) {
+      const retval = {
+        message: 'New Infographic Stored',
+      };
+
+      return retval;
+    } else {
+      throw new Error('Error When Creating Document. Try Again Later!');
+    }
+  }
+};
+
+const editInfographic = async (params) => {
+  const {title, data} = params;
+
+  // Get Infographic From DB
+  const doc = await db.find({
+    selector: {
+      title: {$eq: title},
+    },
+  });
+
+  if (doc.docs.length > 0) {
+    // Iterate to Automatically Edit Data
+    for (item in data) {
+      doc.docs[0][item] = data[item];
+    }
+    doc.docs[0].updatedAt = moment().format();
+
+    // Put new Data to DB
+    const editDoc = await db.put(doc.docs[0]);
+    if (editDoc.ok) {
+      const retval = {
+        message: 'Infographic Edited',
+      };
+
+      return retval;
+    } else {
+      throw new Error('Error When Editing Document. Try Again Later!');
+    }
+  } else {
+    throw new Error('No Documents Found.');
+  }
+};
+
+const deleteInfographic = async (params) => {
+  const {title} = params;
+
+  // Get Data from DB
+  const doc = await db.find({
+    selector: {
+      title: {$eq: title},
+    },
+  });
+
+  if (doc.docs.length > 0) {
+    const selectedInfographic = doc.docs[0];
+    const removeDoc = await db.remove(selectedInfographic._id, selectedInfographic._rev);
+
+    if (removeDoc.ok) {
+      const retval = {
+        message: 'Infographic Deleted',
+      };
+
+      return retval;
+    } else {
+      throw new Error('Error When Deleting Document. Try Again Later!');
+    };
+  } else {
+    throw new Error('No Documents Found.');
+  }
+};
+
 module.exports = {
   getInfographic,
+  addInfographic,
+  editInfographic,
+  deleteInfographic,
 };

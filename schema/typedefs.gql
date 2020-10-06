@@ -11,6 +11,7 @@ type User {
     username: String!
     email: String
     role: String!
+    hp: String
 }
 
 type Dataset {
@@ -43,11 +44,19 @@ input Profile {
     password: String
     email: String
     role: String
+    hp: String
 }
 
 input CategoryInput {
     name: String
     cover: String
+}
+
+input InfographicInput {
+    title: String
+    author: String
+    shortDescription: String
+    readingTime: Int
 }
 
 type Query {
@@ -74,11 +83,8 @@ type Mutation {
     ): GeneralResponse!
 
     editInfographic(
-        id: ID!
-        title: String
-        author: String
-        shortDescription: String
-        readingTime: Int
+        title: String!
+        data: InfographicInput!
     ): GeneralResponse!
 
     deleteInfographic(
@@ -94,9 +100,10 @@ type Mutation {
     
     register(
         username: String!
-        email: String!
+        email: String
         role: String
         password: String!
+        hp: String
     ): GeneralResponse!
 
     verifyPassword(

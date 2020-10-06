@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 const {login, register, editProfile, verifyPassword} = require('./modules/authenticationController');
 const {getCategory, addCategory, editCategory, deleteCategory} = require('./modules/categoryController');
-const {getInfographic} = require('./modules/infographicController');
+const {getInfographic, addInfographic, editInfographic, deleteInfographic} = require('./modules/infographicController');
 
 const resolver = {
   Query: {
@@ -21,15 +21,9 @@ const resolver = {
     deleteCategory: async (parent, args) => await deleteCategory(args),
 
     // Infographic
-    addInfographic: (parent, args) => {
-      /* Function Goes Here */
-    },
-    editInfographic: (parent, args) => {
-      /* Function Goes Here */
-    },
-    deleteInfographic: (parent, args) => {
-      /* Function Goes Here */
-    },
+    addInfographic: async (parent, args) => await addInfographic(args),
+    editInfographic: async (parent, args) => await editInfographic(args),
+    deleteInfographic: async (parent, args) => await deleteInfographic(args),
   },
 };
 
