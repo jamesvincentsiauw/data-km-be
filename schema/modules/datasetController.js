@@ -4,7 +4,7 @@ require('dotenv').config();
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const moment = require('moment');
-const db = new PouchDB('http://'+process.env.COUCH_CREDENTIAL+'@'+process.env.COUCH_STAGING+'dataset', {skip_setup: true});
+const db = new PouchDB('http://'+process.env.COUCH_CREDENTIAL+'@'+process.env.COUCH_STAGING+'/dataset', {skip_setup: true});
 
 const getDataset = async (params) => {
   const {id, name} = params;
