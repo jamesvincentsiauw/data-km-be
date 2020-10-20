@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const bcrypt = require('bcrypt');
 const BCRYPT_SALT = 10;
-const db = new PouchDB(process.env.COUCH_STAGING+'user', {skip_setup: true});
+const db = new PouchDB('http://'+process.env.COUCH_CREDENTIAL+'@'+process.env.COUCH_STAGING+'/user', {skip_setup: true});
 
 const login = async (params) => {
   const {username, password} = params;
